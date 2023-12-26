@@ -18,43 +18,29 @@ import java.util.concurrent.CompletableFuture;
 public class EmployeeAttendanceServiceImpl implements EmployeeAttendanceService {
     @Autowired
     private EmployeeAttendanceRepository employeeAttendanceRepository;
+
     @Override
     public EmployeeAttendanceResource addEmployeeAttendance(EmployeeAttendanceResource employeeAttendanceResource) {
 
         EmployeeAttendance employeeAttendance = AttendanceMapper.mapToAttendance(employeeAttendanceResource);
-            employeeAttendance.setEmaCreatedAt(LocalDateTime.now());
-            employeeAttendance.setEmaUpdatedAt(LocalDateTime.now());
-            employeeAttendance.setEmployee(employeeAttendanceResource.getEmployee());
-            EmployeeAttendance savedAttendance = employeeAttendanceRepository.save(employeeAttendance);
-            return AttendanceMapper.mapToAttendanceDto(savedAttendance);
+        employeeAttendance.setEmaCreatedAt(LocalDateTime.now());
+        employeeAttendance.setEmaUpdatedAt(LocalDateTime.now());
+        employeeAttendance.setEmployee(employeeAttendanceResource.getEmployee());
+        EmployeeAttendance savedAttendance = employeeAttendanceRepository.save(employeeAttendance);
+        return AttendanceMapper.mapToAttendanceDto(savedAttendance);
 
     }
-//    @Async
-//    @Override
-//    public CompletableFuture<List<EmployeeAttendanceResource>> getAttendancesByEmployeeId(Long employeeId) {
-//        return CompletableFuture.completedFuture(employeeAttendanceRepository.findByEmployeeEmpId(employeeId));
-//    }
-//    @Override
-//    public int getNumberOfDaysPresent(Long employeeId) {
-//        // Fetch employee attendance records by employeeId
-//        List<EmployeeAttendance> attendances = employeeAttendanceRepository.findByEmployeeId(employeeId);
-//
-//        long presentDays = attendances.stream()
-//                .filter(attendance -> attendance.getEmployeeAttendanceStatus() == EmployeeAttendanceStatus.PRESENT)
-//                .count();
-//
-//        return (int) presentDays;
-//    }
-@Override
-public int getNumberOfDaysPresent(Long employeeId) {
-    List<EmployeeAttendance> attendances = employeeAttendanceRepository.findByEmployeeEmpId(employeeId);
 
-    // Filter the attendance records to count the number of days the employee was marked as "PRESENT"
-    long presentDays = attendances.stream()
-            .filter(attendance -> attendance.getEmployeeAttendanceStatus() == EmployeeAttendanceStatus.PRESENT)
-            .count();
+    @Override
+    public int getNumberOfDaysPresent(Long employeeId) {
+        List<EmployeeAttendance> attendances = employeeAttendanceRepository.findByEmployeeEmpId(employeeId);
 
-    return (int) presentDays;
-}
+        // Filter the attendance records to count the number of days the employee was marked as "PRESENT"
+        long presentDays = attendances.stream()
+                .filter(attendance -> attendance.getEmployeeAttendanceStatus() == EmployeeAttendanceStatus.PRESENT)
+                .count();
+
+        return (int) presentDays;
+    }
 
 }

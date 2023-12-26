@@ -14,8 +14,7 @@ public class AttendanceMapper {
         userDto.setEmaDate(employeeAttendance.getEmaDate());
         userDto.setEmployeeAttendanceStatus(employeeAttendance.getEmployeeAttendanceStatus());
         userDto.setEmployee(employeeAttendance.getEmployee());
-//        userDto.getEmaCreatedAt(employeeAttendance.getEmaCreatedAt());
-//        userDto.getEmaUpdatedAt(employeeAttendance.getEmaCreatedAt());
+
         return userDto;
     }
 
