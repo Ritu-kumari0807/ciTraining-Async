@@ -12,6 +12,7 @@ import com.ciTask.service.EmployeeAttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -40,7 +41,7 @@ public class EmployeeAttendanceServiceImpl implements EmployeeAttendanceService 
     // Retrieves the number of days an employee was marked as present based on the given employee ID.
     // Throws EmployeeNotFoundException if the employee is not found.
     @Override
-    public int getNumberOfDaysPresent(Long employeeId)throws EmployeeNotFoundException {
+    public int getNumberOfDaysPresent(Long employeeId) throws EmployeeNotFoundException {
 
         List<EmployeeAttendance> attendances = employeeAttendanceRepository.findByEmployeeEmpId(employeeId);
 

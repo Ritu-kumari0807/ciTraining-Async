@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

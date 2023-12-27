@@ -13,7 +13,6 @@ public interface EmployeePayslipService {
      *
      * @param employeeId The unique identifier of the employee for whom the payslip is to be generated.
      * @return A CompletableFuture representing the asynchronous operation of generating the employee's payslip.
-     *
      */
     public CompletableFuture<EmployeePayslip> generatePaySlip(Long employeeId);
 

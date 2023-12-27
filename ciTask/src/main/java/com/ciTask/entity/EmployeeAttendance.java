@@ -1,4 +1,5 @@
 package com.ciTask.entity;
+
 import com.ciTask.dictionary.EmployeeAttendanceStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;

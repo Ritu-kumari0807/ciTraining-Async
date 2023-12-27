@@ -5,7 +5,7 @@ import com.ciTask.resource.EmployeePayslipResource;
 
 public class PayslipMapper {
 
-//    covert EmployeePayslip Entity into EmployeePayslip Resource
+    //    covert EmployeePayslip Entity into EmployeePayslip Resource
     public static EmployeePayslipResource mapToPayslipResource(EmployeePayslip employeePayslip) {
         EmployeePayslipResource payslipDto = new EmployeePayslipResource();
         payslipDto.setEpId(employeePayslip.getEpId());
