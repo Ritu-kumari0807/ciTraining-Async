@@ -16,6 +16,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    // Adds a new employee based on the provided resource and returns the added employee resource.
     @Override
     public EmployeeResource addEmployee(EmployeeResource employeeResource) {
         Employee employee = Mapper.mapToEmployee(employeeResource);
@@ -23,6 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return Mapper.mapToEmployeeDto(savedEmployee);
     }
 
+    // Asynchronously retrieves an employee by their id and returns CompletableFuture holding the retrieved Employee  .
     @Async
     @Override
     public CompletableFuture<Employee> getEmployeeById(Long employeeId) {

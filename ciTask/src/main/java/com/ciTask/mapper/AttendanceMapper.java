@@ -6,7 +6,8 @@ import com.ciTask.resource.EmployeeAttendanceResource;
 import com.ciTask.resource.EmployeeResource;
 
 public class AttendanceMapper {
-    // Convert User Entity into UserDto
+
+    // Convert Attendance Entity into Attendance Resource
     public static EmployeeAttendanceResource mapToAttendanceDto(EmployeeAttendance employeeAttendance) {
         EmployeeAttendanceResource userDto = new EmployeeAttendanceResource();
         userDto.setEaId(employeeAttendance.getEaId());
@@ -18,7 +19,7 @@ public class AttendanceMapper {
         return userDto;
     }
 
-    // Convert UserDto into User JPA Entity
+    // Convert Attendance Resource  into Attendance Entity
     public static EmployeeAttendance mapToAttendance(EmployeeAttendanceResource employeeAttendanceResource) {
         EmployeeAttendance employeeAttendance = new EmployeeAttendance();
         employeeAttendance.setEaId(employeeAttendanceResource.getEaId());

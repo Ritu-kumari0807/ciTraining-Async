@@ -28,6 +28,7 @@ public class EmployeeAttendance {
     private LocalDateTime emaDate;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "EA_STATUS")
     private EmployeeAttendanceStatus employeeAttendanceStatus;
 
     @Column(name = "EA_CREATEDAT")

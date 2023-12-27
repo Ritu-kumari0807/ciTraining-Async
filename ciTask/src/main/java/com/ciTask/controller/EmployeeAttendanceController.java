@@ -1,5 +1,6 @@
 package com.ciTask.controller;
 
+import com.ciTask.entity.Employee;
 import com.ciTask.resource.EmployeeAttendanceResource;
 import com.ciTask.service.EmployeeAttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,8 @@ public class EmployeeAttendanceController {
     @Autowired
     private EmployeeAttendanceService employeeAttendanceService;
 
-
     //http://localhost:8080/api/attendance/addAttendance
-    @PostMapping("/addAttendance")
+    @PostMapping("/addAttendance/{empId}")
     public ResponseEntity<EmployeeAttendanceResource> addEmployeeAttendance(@Valid @RequestBody EmployeeAttendanceResource employeeAttendanceResource) {
         EmployeeAttendanceResource createdAttendance = employeeAttendanceService.addEmployeeAttendance(employeeAttendanceResource);
         return new ResponseEntity<>(createdAttendance, HttpStatus.CREATED);

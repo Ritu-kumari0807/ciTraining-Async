@@ -34,15 +34,18 @@ public class Employee {
     @Column(name = "EMP_EMAIL", unique = true)
     private String empEmail;
 
+    @NotBlank
     @Column(name = "EMP_DEPARTMENT")
     private String empDepartment;
 
     @Column(name = "EMP_SALARY")
     private double empSalary;
 
+    @NotBlank
     @Column(name = "EMP_ADDRESS")
     private String empAddress;
 
+    @NotBlank
     @Column(name = "EMP_PHONE")
     private String empPhoneNumber;
 
