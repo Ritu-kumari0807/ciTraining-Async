@@ -1,7 +1,10 @@
 package com.ciTask.service.impl;
 
 import com.ciTask.entity.Employee;
+import com.ciTask.exception.EmployeeNotFoundException;
 import com.ciTask.mapper.Mapper;
+import com.ciTask.repository.EmployeeAttendanceRepository;
+import com.ciTask.repository.EmployeePayslipRepository;
 import com.ciTask.repository.EmployeeRepository;
 import com.ciTask.resource.EmployeeResource;
 import com.ciTask.service.EmployeeService;
@@ -9,12 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeAttendanceRepository employeeAttendanceRepository;
+
+    @Autowired
+    private EmployeePayslipRepository employeePayslipRepository;
+
 
     // Adds a new employee based on the provided resource and returns the added employee resource.
     @Override
@@ -31,5 +41,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         return CompletableFuture.completedFuture(employeeRepository.findById(employeeId).orElse(null));
     }
 
+
+    @Transactional
+    @Override
+    public void deleteEmployeeWithAttendanceAndPayslip(Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with ID: " + employeeId));
+
+        // Delete attendance records related to the employee
+        employeeAttendanceRepository.deleteByEmployee(employee);
+
+        // Delete payslip records related to the employee
+        employeePayslipRepository.deleteByEmployee(employee);
+
+        // delete the employee
+        employeeRepository.delete(employee);
+    }
 }
+
+
 
