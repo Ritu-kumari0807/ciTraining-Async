@@ -20,7 +20,7 @@ public class EmployeeAttendanceController {
     private EmployeeAttendanceService employeeAttendanceService;
 
     //http://localhost:8080/api/attendance/addAttendance
-    @PostMapping("/addAttendance/{empId}")
+    @PostMapping("/addAttendance")
     public ResponseEntity<EmployeeAttendanceResource> addEmployeeAttendance(@Valid @RequestBody EmployeeAttendanceResource employeeAttendanceResource) {
         EmployeeAttendanceResource createdAttendance = employeeAttendanceService.addEmployeeAttendance(employeeAttendanceResource);
         return new ResponseEntity<>(createdAttendance, HttpStatus.CREATED);
