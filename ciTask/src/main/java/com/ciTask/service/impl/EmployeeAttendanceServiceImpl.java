@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -27,15 +28,21 @@ public class EmployeeAttendanceServiceImpl implements EmployeeAttendanceService 
 
     // Adds a new employee attendance record and returns the added attendance resource.
     @Override
-    public EmployeeAttendanceResource addEmployeeAttendance(EmployeeAttendanceResource employeeAttendanceResource) {
+    public EmployeeAttendanceResource addEmployeeAttendance(Long id,EmployeeAttendanceResource employeeAttendanceResource) {
 
+        Employee employee = getEmployeeById(id);
         EmployeeAttendance employeeAttendance = AttendanceMapper.mapToAttendance(employeeAttendanceResource);
         employeeAttendance.setEmaCreatedAt(LocalDateTime.now());
         employeeAttendance.setEmaUpdatedAt(LocalDateTime.now());
-        employeeAttendance.setEmployee(employeeAttendanceResource.getEmployee());
+        employeeAttendance.setEmployee(employee);
         EmployeeAttendance savedAttendance = employeeAttendanceRepository.save(employeeAttendance);
         return AttendanceMapper.mapToAttendanceDto(savedAttendance);
 
+    }
+
+    private Employee getEmployeeById(Long id) {
+        Employee employeeById= employeeRepository.findById(id).get();
+        return employeeById;
     }
 
     // Retrieves the number of days an employee was marked as present based on the given employee ID.

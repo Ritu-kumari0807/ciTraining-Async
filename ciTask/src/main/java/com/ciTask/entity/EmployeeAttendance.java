@@ -1,6 +1,7 @@
 package com.ciTask.entity;
 
 import com.ciTask.dictionary.EmployeeAttendanceStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,6 +41,7 @@ public class EmployeeAttendance {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMP_ID")
+    @JsonIgnore
     private Employee employee;
 
 }
