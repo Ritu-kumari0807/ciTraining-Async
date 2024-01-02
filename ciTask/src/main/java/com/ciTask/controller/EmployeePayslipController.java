@@ -26,15 +26,11 @@ public class EmployeePayslipController {
     @Autowired
     private EmployeeService employeeService;
 
-    // Endpoint to generate payslip for an employee
+    //http://localhost:8080/api/payslip/generate/{employeeId}
     @PostMapping("/generate/{employeeId}")
     public ResponseEntity<?> generatePaySlip(@PathVariable Long employeeId) {
 
-
-        // Check if the employee exists
         CompletableFuture<Employee> employeeFuture = employeeService.getEmployeeById(employeeId);
-
-        // Handle the CompletableFuture result,This waits for the result
         Employee employee = employeeFuture.join();
         CompletableFuture<EmployeePayslip> generatedPaySlip = employeePayslipService.generatePaySlip(employeeId);
         return new ResponseEntity<>("generated payslip", HttpStatus.CREATED);

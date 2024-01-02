@@ -5,7 +5,7 @@ import com.ciTask.resource.EmployeeResource;
 
 public class Mapper {
 
-    // Convert User Entity into UserDto
+    // Convert Employee Entity into EmployeeResource
     public static EmployeeResource mapToEmployeeDto(Employee employee) {
         EmployeeResource userDto = new EmployeeResource();
         userDto.setEmpId(employee.getEmpId());
@@ -19,7 +19,7 @@ public class Mapper {
         return userDto;
     }
 
-    // Convert UserDto into User JPA Entity
+    // Convert EmployeeResource into Employee Entity
     public static Employee mapToEmployee(EmployeeResource employeeDto) {
         Employee employee = new Employee();
         employee.setEmpId(employeeDto.getEmpId());

@@ -11,11 +11,9 @@ public class InspireException extends RuntimeException {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }
-
     public InspireException(APIErrorCode errorCode) {
         this.errorCode = errorCode;
     }
-
     public APIErrorCode getErrorCode() {
         return errorCode;
     }

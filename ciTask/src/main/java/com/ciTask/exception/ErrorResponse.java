@@ -10,7 +10,6 @@ public class ErrorResponse {
     }
 
     // Getters and setters for errorCode and message
-
     public String getErrorCode() {
         return errorCode;
     }

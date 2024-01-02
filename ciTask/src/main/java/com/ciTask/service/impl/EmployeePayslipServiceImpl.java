@@ -5,11 +5,13 @@ import com.ciTask.entity.Employee;
 import com.ciTask.entity.EmployeePayslip;
 //import com.ciTask.exception.EmployeeNotFoundException;
 import com.ciTask.exception.InspireException;
+import com.ciTask.repository.EmployeeAttendanceRepository;
 import com.ciTask.repository.EmployeePayslipRepository;
 import com.ciTask.repository.EmployeeRepository;
 import com.ciTask.service.EmployeeAttendanceService;
 import com.ciTask.service.EmployeePayslipService;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,11 +22,13 @@ import java.util.concurrent.CompletableFuture;
 public class EmployeePayslipServiceImpl implements EmployeePayslipService {
 
     private final EmployeePayslipRepository employeePayslipRepository;
+    private final EmployeeAttendanceRepository employeeAttendanceRepository;
     private final EmployeeAttendanceService employeeAttendanceService;
     private final EmployeeRepository employeeRepository;
 
-    public EmployeePayslipServiceImpl(EmployeePayslipRepository employeePayslipRepository, EmployeeAttendanceService employeeAttendanceService, EmployeeRepository employeeRepository) {
+    public EmployeePayslipServiceImpl(EmployeePayslipRepository employeePayslipRepository, EmployeeAttendanceRepository employeeAttendanceRepository, EmployeeAttendanceService employeeAttendanceService, EmployeeRepository employeeRepository) {
         this.employeePayslipRepository = employeePayslipRepository;
+        this.employeeAttendanceRepository = employeeAttendanceRepository;
         this.employeeAttendanceService = employeeAttendanceService;
         this.employeeRepository = employeeRepository;
     }
@@ -40,21 +44,20 @@ public class EmployeePayslipServiceImpl implements EmployeePayslipService {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new InspireException(APIErrorCode.NOT_FOUND, "Employeee not found with ID: " + employeeId));
 
-//                        new EmployeeNotFoundException("Employee not found with ID: " + employeeId));
-
         EmployeePayslip paySlip = new EmployeePayslip();
-//        paySlip.setEpEmployeeId(employeeId);
         paySlip.setEpIssueDate(LocalDate.now());
         paySlip.setEpAmount(totalAmount);
         paySlip.setEmployee(employee);
-
         return CompletableFuture.completedFuture(employeePayslipRepository.save(paySlip));
     }
 
-//    // Checks if a payslip exists for the employee identified by the given ID.
-//    public boolean checkPayslipExists(Long employeeId) {
-//
-//        List<EmployeePayslip> payslips = employeePayslipRepository.findByEmployeeEmpId(employeeId);
-//        return !payslips.isEmpty();
-//    }
+    // Scheduled method to generate payslips for employees with attendance
+    @Scheduled(cron = "0 8 13 * * ?")
+    public void generatePayslipsForEmployeesWithAttendance() {
+        List<Employee> employeesWithAttendance = employeeAttendanceRepository.findAllEmployeesWithAttendance();
+
+        for (Employee employee : employeesWithAttendance) {
+            generatePaySlip(employee.getEmpId());
+        }
+    }
 }

@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AttendanceDto {
-//    private Long employeeId;
+
     private LocalDateTime emaDate;
     private EmployeeAttendanceStatus employeeAttendanceStatus;
     private LocalDateTime emaCreatedAt;
     private LocalDateTime emaUpdatedAt;
-//    private Employee employee;
+
 }

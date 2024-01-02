@@ -50,8 +50,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new InspireException(APIErrorCode.NOT_FOUND, "Employeee not found with ID: " + employeeId));
 
-//                 new EmployeeNotFoundException("Employee not found with ID: " + employeeId));
-
         // Delete attendance records related to the employee
         employeeAttendanceRepository.deleteByEmployee(employee);
 

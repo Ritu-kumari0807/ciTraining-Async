@@ -49,17 +49,17 @@ public class EmployeeAttendanceServiceImpl implements EmployeeAttendanceService 
     }
 
     // Retrieves the number of days an employee was marked as present based on the given employee ID.
-     @Override
-     public int getNumberOfDaysPresent(Long employeeId) throws InspireException {
+    @Override
+    public int getNumberOfDaysPresent(Long employeeId) throws InspireException {
 
-         List<EmployeeAttendance> attendances = employeeAttendanceRepository.findByEmployeeEmpId(employeeId);
+        List<EmployeeAttendance> attendances = employeeAttendanceRepository.findByEmployeeEmpId(employeeId);
 
-         // Filter the attendance records to count the number of days the employee was marked as "PRESENT"
-         long presentDays = attendances.stream()
-                 .filter(attendance -> attendance.getEmployeeAttendanceStatus() == EmployeeAttendanceStatus.PRESENT)
-                 .count();
+        // Filter the attendance records to count the number of days the employee was marked as "PRESENT"
+        long presentDays = attendances.stream()
+                .filter(attendance -> attendance.getEmployeeAttendanceStatus() == EmployeeAttendanceStatus.PRESENT)
+                .count();
 
-         return (int) presentDays;
-     }
+        return (int) presentDays;
+    }
 
 }

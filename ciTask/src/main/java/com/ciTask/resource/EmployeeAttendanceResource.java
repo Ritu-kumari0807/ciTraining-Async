@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @Data
 public class EmployeeAttendanceResource {
 
-//    private Long eaId;
-//    private Long employeeId;
     private LocalDateTime emaDate;
     private EmployeeAttendanceStatus employeeAttendanceStatus;
     private LocalDateTime emaCreatedAt;
