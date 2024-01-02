@@ -1,9 +1,11 @@
 package com.ciTask.service.impl;
 
+import com.ciTask.dictionary.APIErrorCode;
 import com.ciTask.dictionary.EmployeeAttendanceStatus;
 import com.ciTask.entity.Employee;
 import com.ciTask.entity.EmployeeAttendance;
-import com.ciTask.exception.EmployeeNotFoundException;
+//import com.ciTask.exception.EmployeeNotFoundException;
+import com.ciTask.exception.InspireException;
 import com.ciTask.mapper.AttendanceMapper;
 import com.ciTask.repository.EmployeeAttendanceRepository;
 import com.ciTask.repository.EmployeeRepository;
@@ -28,7 +30,7 @@ public class EmployeeAttendanceServiceImpl implements EmployeeAttendanceService 
 
     // Adds a new employee attendance record and returns the added attendance resource.
     @Override
-    public EmployeeAttendanceResource addEmployeeAttendance(Long id,EmployeeAttendanceResource employeeAttendanceResource) {
+    public EmployeeAttendanceResource addEmployeeAttendance(Long id, EmployeeAttendanceResource employeeAttendanceResource) {
 
         Employee employee = getEmployeeById(id);
         EmployeeAttendance employeeAttendance = AttendanceMapper.mapToAttendance(employeeAttendanceResource);
@@ -41,23 +43,23 @@ public class EmployeeAttendanceServiceImpl implements EmployeeAttendanceService 
     }
 
     private Employee getEmployeeById(Long id) {
-        Employee employeeById= employeeRepository.findById(id).get();
-        return employeeById;
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new InspireException(APIErrorCode.NOT_FOUND, "Employeee not found with ID: " + id));
+        return employee;
     }
 
     // Retrieves the number of days an employee was marked as present based on the given employee ID.
-    // Throws EmployeeNotFoundException if the employee is not found.
-    @Override
-    public int getNumberOfDaysPresent(Long employeeId) throws EmployeeNotFoundException {
+     @Override
+     public int getNumberOfDaysPresent(Long employeeId) throws InspireException {
 
-        List<EmployeeAttendance> attendances = employeeAttendanceRepository.findByEmployeeEmpId(employeeId);
+         List<EmployeeAttendance> attendances = employeeAttendanceRepository.findByEmployeeEmpId(employeeId);
 
-        // Filter the attendance records to count the number of days the employee was marked as "PRESENT"
-        long presentDays = attendances.stream()
-                .filter(attendance -> attendance.getEmployeeAttendanceStatus() == EmployeeAttendanceStatus.PRESENT)
-                .count();
+         // Filter the attendance records to count the number of days the employee was marked as "PRESENT"
+         long presentDays = attendances.stream()
+                 .filter(attendance -> attendance.getEmployeeAttendanceStatus() == EmployeeAttendanceStatus.PRESENT)
+                 .count();
 
-        return (int) presentDays;
-    }
+         return (int) presentDays;
+     }
 
 }

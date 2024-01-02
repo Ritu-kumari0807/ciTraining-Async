@@ -22,10 +22,6 @@ public class EmployeeAttendance {
     private Long eaId;
 
     @NotNull
-    @Column(name = "EMPLOYEE_ID")
-    private Long employeeId;
-
-    @NotNull
     @Column(name = "EA_DATE")
     private LocalDateTime emaDate;
 

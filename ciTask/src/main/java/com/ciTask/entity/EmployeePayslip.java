@@ -1,5 +1,6 @@
 package com.ciTask.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,6 @@ public class EmployeePayslip {
     @Column(name = "EP_ID")
     private Long epId;
 
-    @Column(name = "EP_EMPLOYEE_ID")
-    private Long epEmployeeId;
-
     @Column(name = "EP_ISSUE_DATE")
     private LocalDate epIssueDate;
 
@@ -29,5 +27,6 @@ public class EmployeePayslip {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMP_ID")
+    @JsonIgnore
     private Employee employee;
 }

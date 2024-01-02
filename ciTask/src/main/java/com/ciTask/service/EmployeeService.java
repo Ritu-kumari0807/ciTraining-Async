@@ -25,7 +25,7 @@ public interface EmployeeService {
      *
      * @param employeeId The id of the employee to retrieve.
      * @return A CompletableFuture representing the asynchronous operation to retrieve the employee.
-     *         The CompletableFuture holds the resulting Employee once the retrieval is complete.
+     * The CompletableFuture holds the resulting Employee once the retrieval is complete.
      */
     @Async
     CompletableFuture<Employee> getEmployeeById(Long employeeId);
@@ -35,9 +35,9 @@ public interface EmployeeService {
      * Deletes an employee along with their attendance and payslip records .
      *
      * @param employeeId The ID of the employee to be deleted along with related records.
-     *
-     * Fetches the employee by ID and deletes associated attendance and payslip records.
-     * If the employee doesn't exist, throws EmployeeNotFoundException.
+     *                   <p>
+     *                   Fetches the employee by ID and deletes associated attendance and payslip records.
+     *                   If the employee doesn't exist, throws EmployeeNotFoundException.
      */
     @Transactional
     void deleteEmployeeWithAttendanceAndPayslip(Long employeeId);

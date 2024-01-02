@@ -57,5 +57,3 @@ public class Employee {
     private List<EmployeePayslip> payslips;
 
 }
-
-

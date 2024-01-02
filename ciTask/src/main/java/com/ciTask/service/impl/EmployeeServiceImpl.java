@@ -1,7 +1,9 @@
 package com.ciTask.service.impl;
 
+import com.ciTask.dictionary.APIErrorCode;
 import com.ciTask.entity.Employee;
-import com.ciTask.exception.EmployeeNotFoundException;
+//import com.ciTask.exception.EmployeeNotFoundException;
+import com.ciTask.exception.InspireException;
 import com.ciTask.mapper.Mapper;
 import com.ciTask.repository.EmployeeAttendanceRepository;
 import com.ciTask.repository.EmployeePayslipRepository;
@@ -46,7 +48,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployeeWithAttendanceAndPayslip(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with ID: " + employeeId));
+                .orElseThrow(() -> new InspireException(APIErrorCode.NOT_FOUND, "Employeee not found with ID: " + employeeId));
+
+//                 new EmployeeNotFoundException("Employee not found with ID: " + employeeId));
 
         // Delete attendance records related to the employee
         employeeAttendanceRepository.deleteByEmployee(employee);

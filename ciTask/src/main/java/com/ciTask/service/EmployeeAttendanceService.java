@@ -17,7 +17,7 @@ public interface EmployeeAttendanceService {
      * @param employeeAttendanceResource The resource containing details of the employee attendance to be added.
      * @return The resource representing the newly added employee attendance.
      */
-    EmployeeAttendanceResource addEmployeeAttendance(Long id,EmployeeAttendanceResource employeeAttendanceResource);
+    EmployeeAttendanceResource addEmployeeAttendance(Long id, EmployeeAttendanceResource employeeAttendanceResource);
 
     /**
      * Retrieves the number of days an employee was marked as present based on the provided employee ID.

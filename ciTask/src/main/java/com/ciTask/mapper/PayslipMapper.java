@@ -9,7 +9,7 @@ public class PayslipMapper {
     public static EmployeePayslipResource mapToPayslipResource(EmployeePayslip employeePayslip) {
         EmployeePayslipResource payslipDto = new EmployeePayslipResource();
         payslipDto.setEpId(employeePayslip.getEpId());
-        payslipDto.setEpEmployeeId(employeePayslip.getEpEmployeeId());
+//        payslipDto.setEpEmployeeId(employeePayslip.getEpEmployeeId());
         payslipDto.setEpIssueDate(employeePayslip.getEpIssueDate());
         payslipDto.setEpAmount(employeePayslip.getEpAmount());
         payslipDto.setEmployee(employeePayslip.getEmployee());
@@ -20,7 +20,7 @@ public class PayslipMapper {
     public static EmployeePayslip mapToPayslip(EmployeePayslipResource employeePayslipResource) {
         EmployeePayslip payslip = new EmployeePayslip();
         payslip.setEpId(employeePayslipResource.getEpId());
-        payslip.setEpEmployeeId(employeePayslipResource.getEpEmployeeId());
+//        payslip.setEpEmployeeId(employeePayslipResource.getEpEmployeeId());
         payslip.setEpIssueDate(employeePayslipResource.getEpIssueDate());
         payslip.setEpAmount(employeePayslipResource.getEpAmount());
         payslip.setEmployee(employeePayslipResource.getEmployee());

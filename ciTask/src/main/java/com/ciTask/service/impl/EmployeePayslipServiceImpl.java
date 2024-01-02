@@ -1,8 +1,10 @@
 package com.ciTask.service.impl;
 
+import com.ciTask.dictionary.APIErrorCode;
 import com.ciTask.entity.Employee;
 import com.ciTask.entity.EmployeePayslip;
-import com.ciTask.exception.EmployeeNotFoundException;
+//import com.ciTask.exception.EmployeeNotFoundException;
+import com.ciTask.exception.InspireException;
 import com.ciTask.repository.EmployeePayslipRepository;
 import com.ciTask.repository.EmployeeRepository;
 import com.ciTask.service.EmployeeAttendanceService;
@@ -36,10 +38,12 @@ public class EmployeePayslipServiceImpl implements EmployeePayslipService {
 
         // Fetch the Employee entity by its ID
         Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with ID: " + employeeId));
+                .orElseThrow(() -> new InspireException(APIErrorCode.NOT_FOUND, "Employeee not found with ID: " + employeeId));
+
+//                        new EmployeeNotFoundException("Employee not found with ID: " + employeeId));
 
         EmployeePayslip paySlip = new EmployeePayslip();
-        paySlip.setEpEmployeeId(employeeId);
+//        paySlip.setEpEmployeeId(employeeId);
         paySlip.setEpIssueDate(LocalDate.now());
         paySlip.setEpAmount(totalAmount);
         paySlip.setEmployee(employee);

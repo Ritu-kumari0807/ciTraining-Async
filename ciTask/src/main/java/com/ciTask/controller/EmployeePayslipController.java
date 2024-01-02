@@ -1,8 +1,10 @@
 package com.ciTask.controller;
 
+import com.ciTask.dictionary.APIErrorCode;
 import com.ciTask.entity.Employee;
 import com.ciTask.entity.EmployeePayslip;
-import com.ciTask.exception.EmployeeNotFoundException;
+//import com.ciTask.exception.EmployeeNotFoundException;
+import com.ciTask.exception.InspireException;
 import com.ciTask.exception.PayslipAlreadyExistsException;
 import com.ciTask.mapper.PayslipMapper;
 import com.ciTask.resource.EmployeePayslipResource;
@@ -27,31 +29,15 @@ public class EmployeePayslipController {
     // Endpoint to generate payslip for an employee
     @PostMapping("/generate/{employeeId}")
     public ResponseEntity<?> generatePaySlip(@PathVariable Long employeeId) {
-        try {
 
-            // Check if the employee exists
-            CompletableFuture<Employee> employeeFuture = employeeService.getEmployeeById(employeeId);
 
-            // Handle the CompletableFuture result,This waits for the result
-            Employee employee = employeeFuture.join();
+        // Check if the employee exists
+        CompletableFuture<Employee> employeeFuture = employeeService.getEmployeeById(employeeId);
 
-            if (employee == null) {
-                throw new EmployeeNotFoundException("Employee not found with ID: " + employeeId);
-            }
+        // Handle the CompletableFuture result,This waits for the result
+        Employee employee = employeeFuture.join();
+        CompletableFuture<EmployeePayslip> generatedPaySlip = employeePayslipService.generatePaySlip(employeeId);
+        return new ResponseEntity<>("generated payslip", HttpStatus.CREATED);
 
-//            // Check if a payslip already exists for the employee
-//            boolean payslipExists = employeePayslipService.checkPayslipExists(employeeId);
-//
-//            if (payslipExists) {
-//                throw new PayslipAlreadyExistsException("Payslip already generated for Employee ID: " + employeeId);
-//            }
-
-            CompletableFuture<EmployeePayslip> generatedPaySlip = employeePayslipService.generatePaySlip(employeeId);
-            return new ResponseEntity<>("generated payslip", HttpStatus.CREATED);
-        } catch (EmployeeNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 }
